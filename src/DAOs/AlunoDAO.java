@@ -13,6 +13,7 @@ import model.MySQLConnection;
 public class AlunoDAO {
 
 	private Connection conn = null;
+	
 
 	public void cadastrarAluno(Aluno aluno) {
 		conn = MySQLConnection.conectar();
@@ -39,6 +40,8 @@ public class AlunoDAO {
 			MySQLConnection.desconectar(conn);
 		}
 	}
+	
+	
 
 	public Aluno buscarAlunoPorId(Integer idAluno) {
 		conn = MySQLConnection.conectar();
@@ -153,5 +156,46 @@ public class AlunoDAO {
 		} finally {
 			MySQLConnection.desconectar(conn);
 		}
+		
+		
 	}
+	
+	public Aluno buscarClassePorId(Integer idAluno) {
+		conn = MySQLConnection.conectar();
+		Aluno aluno = new Aluno();
+		ResultSet res = null;
+		boolean existeRegistro = false;
+
+		final String SQL = "SELECT * FROM aluno WHERE nome = ?";
+
+		try {
+			PreparedStatement statement = conn.prepareStatement(SQL);
+
+			statement.setInt(1, idAluno);
+
+			res = statement.executeQuery();
+
+			if (res.next()) {
+				existeRegistro = true;
+				aluno.setId(Integer.valueOf(res.getString("id_aluno")));
+				aluno.setNome(res.getString("nome"));
+				aluno.setIdade(Integer.valueOf(res.getString("idade")));
+				aluno.setTelefone(res.getString("telefone"));
+				aluno.setMatricula(res.getString("matricula"));
+			} else {
+				System.out.println("\n*** Aluno(a) não encontrado para o Id informado. ***");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MySQLConnection.desconectar(conn);
+		}
+
+		return existeRegistro ? aluno : null;
+	}
+	
+
+	
+	
 }

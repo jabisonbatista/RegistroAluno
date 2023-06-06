@@ -4,10 +4,14 @@ import java.util.List;
 import java.util.Scanner;
 
 import DAOs.AlunoDAO;
+import DAOs.ControleDeFrequenciaDAO;
 import model.Aluno;
+import model.Classe;
+import model.ControleFrequencia;
 
 public class Principal {
 
+	private static final Classe SalaDeAula = null;
 	static AlunoDAO alunoDAO = new AlunoDAO();
 	static Scanner scanner = new Scanner(System.in);
 
@@ -17,17 +21,19 @@ public class Principal {
 
 		while (opcao != 0) {
 			System.out.println(" =================================");
-	        System.out.println("| *  MENU DE CADASTRO DE ALUNOS * |");
-	        System.out.println("|=================================|");
-	        System.out.println("|    Escolha uma opção:           |");
-	        System.out.println("|                                 |");
-	        System.out.println("|    1 - Cadastrar Aluno(a)       |");
-	        System.out.println("|    2 - Buscar Aluno(a) por Id   |");
-	        System.out.println("|    3 - Listar Todos Alunos      |");
-	        System.out.println("|    4 - Atualizar Aluno(a)       |");
-	        System.out.println("|    5 - Deletar Aluno(a)         |");
-	        System.out.println("|    0 - Sair                     |");
-	        System.out.println(" =================================");
+			System.out.println("| *  MENU DE CADASTRO DE ALUNOS * |");
+			System.out.println("|=================================|");
+			System.out.println("|    Escolha uma opção:           |");
+			System.out.println("|                                 |");
+			System.out.println("|    1 - Cadastrar Aluno(a)       |");
+			System.out.println("|    2 - Buscar Aluno(a) por Id   |");
+			System.out.println("|    3 - Listar Todos Alunos      |");
+			System.out.println("|    4 - Atualizar Aluno(a)       |");
+			System.out.println("|    5 - Deletar Aluno(a)         |");
+			System.out.println("|    6 - Registrar Frequençia     |");
+			System.out.println("|    7 - Listar Classes           |");
+			System.out.println("|    0 - Sair                     |");
+			System.out.println(" =================================");
 			opcao = scanner.nextInt();
 
 			switch (opcao) {
@@ -45,6 +51,12 @@ public class Principal {
 				break;
 			case 5:
 				menuDeletarAluno();
+				break;
+			case 6:
+				menuFrequenciaAluno();
+				break;
+			case 7:
+				menuClasseDeAluno();
 				break;
 			}
 
@@ -134,4 +146,45 @@ public class Principal {
 			alunoDAO.deletarAluno(aluno.getId());
 		}
 	}
+
+	public static void menuFrequenciaAluno() {
+		
+		System.out.println("informe o id do aluno: ");
+		Integer idAluno = scanner.nextInt();
+		
+		AlunoDAO alunoDAO = new AlunoDAO();
+		
+		Aluno aluno = alunoDAO.buscarAlunoPorId(idAluno);
+		
+		
+		
+		
+		
+		//Aluno aluno = new Aluno();
+		aluno.setId(1);
+		aluno.setNome("anderson");
+		
+		Classe classe = new Classe();
+		classe.setNome("ADULTO");
+		classe.setId(2);
+		
+		
+		ControleFrequencia frequencia = new ControleFrequencia();
+		frequencia.setAluno(aluno);
+		frequencia.setClasse(classe);
+		frequencia.setStatus("sim");
+		
+		
+		ControleDeFrequenciaDAO frequenciaDAO = new ControleDeFrequenciaDAO();
+		frequenciaDAO.cadastrarFrequencia(frequencia);
+		
+
+	}
+
+	public static void menuClasseDeAluno() {
+		
+		System.out.println("Listar Classes: ");
+
+	}
+
 }
