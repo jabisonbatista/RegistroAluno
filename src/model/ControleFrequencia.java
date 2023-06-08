@@ -1,29 +1,22 @@
 package model;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
 public class ControleFrequencia {
-   
+
 	private Integer id;
-	
+
 	private Aluno aluno;
-	
+
 	private Classe classe;
-	
+
 	private String status;
-	
-	private LocalDateTime dataHora;
-	
+
+	private LocalDate data;
+
 	public void controle(Aluno aluno, Classe salaDeaula) {
-        
-        
-    }
-    
-    //public List<Classe> obterFrequencia(Aluno aluno) {
-     
-    //}
-    
+
+	}
 
 	public Integer getId() {
 		return id;
@@ -57,14 +50,17 @@ public class ControleFrequencia {
 		this.status = status;
 	}
 
-	public LocalDateTime getDataHora() {
-		return dataHora;
+	public LocalDate getData() {
+		return data;
 	}
 
-	public void setDataHora(LocalDateTime dataHora) {
-		this.dataHora = dataHora;
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
-    
-    
+
+	@Override
+	public String toString() {
+		return "ControleFrequencia [id = " + id + ", aluno = " + aluno.getId() + ", classe = " + classe.getId()
+				+ ", status = " + status + ", data = " + data + "]";
+	}
 }
-
